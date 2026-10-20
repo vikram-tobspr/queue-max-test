@@ -1,0 +1,13 @@
+name: call-single
+run-name: single ${{ inputs.label }} in ${{ inputs.group }}
+on:
+  workflow_dispatch:
+    inputs:
+      label: {type: string, required: true}
+      group: {type: string, required: true}
+jobs:
+  call:
+    uses: ./.github/workflows/lock-single.yml
+    with:
+      label: ${{ inputs.label }}
+      group: ${{ inputs.group }}

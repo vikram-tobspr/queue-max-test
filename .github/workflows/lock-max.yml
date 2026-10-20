@@ -1,0 +1,15 @@
+on:
+  workflow_call:
+    inputs:
+      label: {type: string, required: true}
+      group: {type: string, required: true}
+jobs:
+  hold:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: ${{ inputs.group }}
+      cancel-in-progress: false
+      queue: max
+    steps:
+      - run: echo "start ${{ inputs.label }} $(date -u +%T)"; sleep 75; echo "end ${{ inputs.label }} $(date -u +%T)"
